@@ -3,20 +3,22 @@
 \usepackage{geometry}
 \usepackage{subcaption}
 \usepackage{diagbox}
-\setcounter{chapter}{-1}
 \usepackage{mathtools}
 \usepackage{amssymb,amsthm}
-\newtheorem{proposition}{命题}[section]
 \newtheorem{theorem}{定理}[section]
+\newtheorem{lemma}{引理}[section]
+\newtheorem{corollary}{推论}[section]
+\newtheorem{proposition}{命题}[section]
 \theoremstyle{definition}
 \newtheorem{definition}{定义}[section]
 \newtheorem{example}{例}[section]
 \theoremstyle{remark}
 \newtheorem{remark}{注}
 \everymath{\displaystyle}
+\usepackage{float}
 
-\title{Elementary Analysis}
-\author{Inverted Pastry}
+\title{数学分析}
+\author{倒置的糕点}
 \date{2023}
 
 \begin{document}
@@ -27,17 +29,17 @@
 
 \mainmatter
 
-\chapter{预备知识}
+\chapter{逻辑, 集合与关系}
 
-本章并非对于集合论等知识的严格叙述, 而是在读者对这些知识早已知悉的条件之下, 对后面所需的记号进行简单讨论.
+本章并非对于逻辑, 集合与关系等知识的严格叙述, 而是在读者对此早已知悉的条件之下, 对后面所需的记号进行简单讨论. 读者应跳读本章, 有需要时再回来查阅具体内容.
 
 \section{逻辑}
 
-通用的逻辑符号大致有以下五种: $\neg$, $\wedge$, $\vee$, $\Rightarrow$, $\Leftrightarrow$, 它们分别表示非, 与, 或, 蕴含, 等价. 括号被用于划分复杂命题中的结构. 为简化书写, 如下由高至低约定逻辑符号的优先顺序: $\neg$, $\wedge$, $\vee$, $\Rightarrow$, $\Leftrightarrow$, 而他们的准确定义由下面的真值表给出. 其中 1 和 0 分别表示真假断言.
+通用的逻辑符号大致有五种: $\neg$, $\wedge$, $\vee$, $\Rightarrow$ 和 $\Leftrightarrow$, 它们分别表示非, 与, 或, 蕴含以及等价, 准确定义由下面的真值表给出. 其中 1 和 0 分别表示逻辑学中的真, 假命题\footnote{现阶段, 我们认为命题可以明确地判断真假, 且任何可以明确判断真假者均为命题. 例如, ``本句不为命题" 是命题且是假命题, 而 ``本句为假命题" 则不是命题.}\footnote{数学中的命题是一个不太重要的定理, 又或者是一个非常基本或显而易见的定理, 以至于无需证明即可陈述. 这里应予以区分.}.
 
-\begin{table}[htbp]
+\begin{table}[H]
     \centering
-    \begin{subtable}[htbp]{0.16\textwidth}
+    \begin{subtable}[H]{0.16\textwidth}
         \centering
         \begin{tabular}{|c|c|c|}
         \hline
@@ -47,9 +49,9 @@
         \hline
         \end{tabular}
         \caption{$\neg{A}$}
-        \label{tab:1_a}
+        \label{tab:1.1_a}
     \end{subtable}
-    \begin{subtable}[htbp]{0.2\textwidth}
+    \begin{subtable}[H]{0.2\textwidth}
         \centering
         \begin{tabular}{|c|c|c|}
         \hline
@@ -61,9 +63,9 @@
         \hline
         \end{tabular}
         \caption{$A\wedge{B}$}
-        \label{tab:1_b}
+        \label{tab:1.1_b}
     \end{subtable}
-    \begin{subtable}[htbp]{0.2\textwidth}
+    \begin{subtable}[H]{0.2\textwidth}
         \centering
         \begin{tabular}{|c|c|c|}
         \hline
@@ -75,9 +77,9 @@
         \hline
         \end{tabular}
         \caption{$A\vee{B}$}
-        \label{tab:1_c}
+        \label{tab:1.1_c}
     \end{subtable}
-    \begin{subtable}[htbp]{0.2\textwidth}
+    \begin{subtable}[H]{0.2\textwidth}
         \centering
         \begin{tabular}{|c|c|c|}
         \hline
@@ -89,9 +91,9 @@
         \hline
         \end{tabular}
         \caption{$A\Rightarrow{B}$}
-        \label{tab:1_d}
+        \label{tab:1.1_d}
     \end{subtable}
-    \begin{subtable}[htbp]{0.2\textwidth}
+    \begin{subtable}[H]{0.2\textwidth}
         \centering
         \begin{tabular}{|c|c|c|}
         \hline
@@ -103,15 +105,15 @@
         \hline
         \end{tabular}
         \caption{$A\Leftrightarrow{B}$}
-        \label{tab:1_e}
+        \label{tab:1.1_e}
     \end{subtable}
     \caption{真值表}
-    \label{tab:1}
+    \label{tab:1.1}
 \end{table}
 
-值得注意的是, 假命题蕴含任何命题, $A$ 或 $B$ 为真不要求 $A$, $B$ 中至多一者为真. 而与后者相对应的另一不常用逻辑符号 $\veebar$ (异或) 则有如下真值表.
+值得注意的是, 假命题蕴含任何命题; $A$ 或 $B$ 为真不要求 $A$, $B$ 中恰有一者为真. 相对应地, 有另一不常用逻辑符号 $\veebar$ (异或), 其真值表如下.
 
-\begin{table}[htbp]
+\begin{table}[H]
     \centering
     \begin{tabular}{|c|c|c|}
         \hline
@@ -121,10 +123,12 @@
         \hline
         1 & 1 & 0 \\
         \hline
-        \end{tabular}
-        \caption{$A\veebar{B}$}
-    \label{tab:2}
+    \end{tabular}
+    \caption{$A\veebar{B}$}
+    \label{tab:1.2}
 \end{table}
+
+对于更加复杂的命题, 括号被用于划分结构. 但为简化书写, 由高至低约定逻辑符号的优先顺序: $\neg$, $\wedge$, $\vee$, $\Rightarrow$, $\Leftrightarrow$.
 
 运用上述定义则可由穷举法证得如下命题.
 
@@ -147,31 +151,18 @@
     \item $A\veebar{B}$ 定义为 $\neg(A\Leftrightarrow{B})$.
 \end{enumerate}
 
-
 至此, 我们已经对认知中的逻辑建立起了较为严格的叙述.
 
-\section{证明}
+\section{集合}
 
-命题的证明方法不计其数, 但总的来说可以归结为对 $A\Rightarrow{C}$ 的处理, 其中 $A$, $C$ 分别是命题的假设和结论. 下面列出几种较为常见的证明方法.
+\section{关系}
 
-\subsection{直接证明}
+\subsection{等价关系}
 
-直接证明的过程是对一系列既定事实的组合, 而不做任何进一步的假设, 也即证明命题 $A\Rightarrow{C}$ 的等价命题 $(A\Rightarrow{B_1})\wedge(B_1\Rightarrow{B_2})\wedge\cdots\wedge(B_{n-1}\Rightarrow{B_n})\wedge(B_n\Rightarrow{C})\wedge$, 后者简记为 $A\Rightarrow{B_1}\Rightarrow{B_2}\Rightarrow\cdots\Rightarrow{B_n}\Rightarrow{C}$. 该方法的原理为: 若 $A$ 与 $A\Rightarrow{B}$ 均为真, 则 $B$ 为真. 下举一例.
+\subsection{映射}
 
-\begin{example}
-    若 $a$ 为奇数, 则 $a^2$ 也为奇数.
+\subsection{序关系}
 
-    \begin{proof}
-        $a$ 为奇数意味着 $\exists{k}\left((k\in\mathbb{Z})\wedge(a=2k+1)\right)$, 于是 $a^2=(2k+1)^2=4k^2+4k+1=2\left(2k^2+2k\right)+1$ 亦为奇数.
-    \end{proof}
-\end{example}
-
-\subsection{换质位法}
-
-同时否定一个命题的前件和后件, 其结果称为原命题的换质; 交换一个命题前件和后件的位置, 其结果称为原命题的换位. 换质位法即利用换质与换位将一个命题改为了与其等价的逆否命题.
-
-\begin{example}
-    考虑集合 $S$ 的划分 $!!$, 若 $|S|>100$ 且 $|A|=10$, 则存在 $\alpha_0\in{A}$ 使得 $\left|S_{\alpha_0}\right|>10$.
-\end{example}
+\chapter{实数}
 
 \end{document}

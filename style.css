@@ -1,0 +1,92 @@
+@font-face {
+  font-family: "CMU Serif";
+  src: url('/cmunrm.otf');
+}
+
+@font-face {
+  font-family: "CMU Serif";
+  src: url('https://mirrors.mit.edu/CTAN/fonts/cm-unicode/fonts/otf/cmunbx.otf');
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: "CMU Serif";
+  src: url('https://mirrors.mit.edu/CTAN/fonts/cm-unicode/fonts/otf/cmunti.otf');
+  font-style: italic, oblique;
+}
+
+@font-face {
+  font-family: "CMU Serif";
+  src: url('https://mirrors.mit.edu/CTAN/fonts/cm-unicode/fonts/otf/cmunbi.otf');
+  font-weight: bold;
+  font-style: italic, oblique;
+}
+
+@font-face {
+  font-family: "Fandol";
+  src: url('/FandolSong-Regular.otf');
+}
+
+@font-face {
+  font-family: "Fandol";
+  src: url('https://mirrors.mit.edu/CTAN/fonts/fandol/FandolSong-Bold.otf');
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: "Fandol";
+  src: url('https://mirrors.mit.edu/CTAN/fonts/fandol/FandolKai-Regular.otf');
+  font-style: italic, oblique;
+}
+
+body {
+  font-family: "CMU Serif", "Fandol";
+  margin-top: 1in;
+  margin-bottom: 1in;
+  margin-right: 1in;
+  margin-left: 1in;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+header.title {
+  text-align: center;
+}
+
+.footnote {
+  font-size: small;
+}
+
+h2 {
+  text-align: center;
+}
+
+p {
+  text-indent: 2em;
+}
+
+ol.toc {
+  counter-reset: item;
+}
+
+li {
+  display: block;
+}
+
+li.chapter:before {
+  content: "第"counter(item, cjk-ideographic)"章";
+  counter-increment: item;
+}
+
+li.section:before {
+  content: counters(item, ".");
+  counter-increment: item;
+}
+
+li.subsection:before {
+  content: counters(item, ".");
+  counter-increment: item;
+}
